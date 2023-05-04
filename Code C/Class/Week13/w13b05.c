@@ -12,9 +12,10 @@ void replace(char string[100], char a, char b){
 int main(){
    char string[100];
     SetConsoleOutputCP(CP_UTF8);
+    printf("Bài 5:\n");
     printf("Nhập vào một xâu kí tự: ");
-    fflush(stdin);
-    gets(string);
+    fgets(string, sizeof(string), stdin);
+    string[strlen(string)] = '\0'; 
     char a, b;
     printf("Nhập vào hai kí tự: ");
     scanf("%c %c", &a, &b);

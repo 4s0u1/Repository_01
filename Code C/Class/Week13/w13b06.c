@@ -24,6 +24,7 @@ void giaiMa(char string[], int step) {
 int main() {
     char string[100];
     SetConsoleOutputCP(CP_UTF8);
+    printf("Bài 6:\n");
     printf("Nhập vào một xâu kí tự: ");
     fgets(string, sizeof(string), stdin);
     string[strlen(string)] = '\0'; 

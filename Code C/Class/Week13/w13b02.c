@@ -7,9 +7,10 @@
 int main(){
     char string[100];
     SetConsoleOutputCP(CP_UTF8);
+    printf("Bài 2:\n");
     printf("Nhập vào một xâu kí tự: ");
-    fflush(stdin);
-    gets(string);
+    fgets(string, sizeof(string), stdin);
+    string[strlen(string)] = '\0'; 
     int i = 0, j;
     while (i < strlen(string)){
         if(isspace(string[i]) != 0 && isspace(string[i + 1]) != 0){

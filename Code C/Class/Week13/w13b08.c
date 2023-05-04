@@ -7,9 +7,10 @@
 int main(){
     char string[100];
     SetConsoleOutputCP(CP_UTF8);
+    printf("Bài 8:\n");
     printf("Nhập vào một xâu kí tự: ");
-    fflush(stdin);
-    gets(string);
+    fgets(string, sizeof(string), stdin);
+    string[strlen(string)] = '\0'; 
     char c;
     printf("Nhập kí tự: ");
     scanf("%c", &c);

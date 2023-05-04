@@ -7,12 +7,13 @@
 int main(){
     char string[100], name[10];
     SetConsoleOutputCP(CP_UTF8);
+    printf("Bài 3:\n");
     printf("Nhập họ và tên: ");
-    fflush(stdin);
-    gets(string);
+    fgets(string, sizeof(string), stdin);
+    string[strlen(string)] = '\0'; 
     char *locate = strrchr(string, 32);
     strcpy(&name[0], locate+1);
-    printf("Tên vừa nhập là:");
+    printf("Tên vừa nhập là: ");
     printf("%s", name);
     return 0;
 }
