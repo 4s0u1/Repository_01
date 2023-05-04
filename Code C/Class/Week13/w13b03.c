@@ -12,7 +12,6 @@ int main(){
     gets(string);
     char *locate = strrchr(string, 32);
     strcpy(&name[0], locate+1);
-    printf("Tên vừa nhập là:");
     printf("%s", name);
     return 0;
 }
