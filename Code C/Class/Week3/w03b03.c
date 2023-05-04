@@ -6,7 +6,7 @@ int main()
     SetConsoleOutputCP(CP_UTF8);
     int a, b;
     printf("Mời nhập hai số nguyên: ");
-    scanf("%d%d",&a,&b);
+    scanf("%d%d", &a, &b);
     printf("\n%d - %d = %d", a, b, a - b);
     printf("\n%d + %d = %d", a, b, a + b);
     printf("\n%d * %d = %d", a, b, a * b);
