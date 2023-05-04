@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <windows.h>
+#include <stdio.h>
 
 int main()
 {
@@ -12,18 +12,18 @@ int main()
     SetConsoleOutputCP(CP_UTF8);
     printf("Nhập thông tin:\n");
     printf("Nhập số thứ tự: ");
-    scanf("%d",&stt);
+    scanf("%d", &stt);
     printf("Nhập ngày tháng: ");
-    scanf("%s",&date);
+    scanf("%s", &date);
     printf("Nhập tên lớp học: ");
-    scanf("%s",&class);
+    scanf("%s", &class);
     printf("Nhập môn học: ");
-    scanf("%s",&subject);
+    scanf("%s", &subject);
     printf("%s","Nhập thời điểm bắt đầu: ");
-    scanf("%s",&timestart);
+    scanf("%s", &timestart);
     printf("%s","Nhập thời điểm kết thúc: ");
-    scanf("%s",&timeend);
-    printf("%3s%15s%20s%20s%20s%20s\n","STT","DATE","CLASS","SUBJECT","TIME START","TIME END");
-    printf("%3d%15s%20s%20s%20s%20s",stt,date,class,subject,timestart,timeend);
+    scanf("%s", &timeend);
+    printf("%3s%15s%20s%20s%20s%20s\n", "STT", "DATE", "CLASS", "SUBJECT", "TIME START", "TIME END");
+    printf("%3d%15s%20s%20s%20s%20s", stt, date, class, subject, timestart, timeend);
     return 0;
 }  
