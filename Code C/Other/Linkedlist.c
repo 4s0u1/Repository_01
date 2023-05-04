@@ -44,7 +44,6 @@ void AddTail(int value){
     }
 }
 void AddAt(int locate, int value){
-    
     if (locate == 1){
         AddHead(value);
     }
@@ -91,6 +90,18 @@ void DeleteTail(){
         }
     }
 }
+void DeleteAt(int locate){
+    if (locate == 1){
+        DeleteHead();
+    }
+    else{
+        node p = head;
+        for (int i = 1;i < locate-1;i++){
+            p = p->next;
+        } 
+        p->next = p->next->next;
+    }
+}
 void Traverser(){
     if (head==NULL){
         printf("EMPTY\n");
@@ -104,48 +115,57 @@ void Traverser(){
 }
 
 void nhapxuat(){
-    int x,y,d; 
-    
-    printf("Chọn câu lệnh: ");
-    scanf("%d",&x);
-    switch (x)
-    {
-    case 1:
-        printf("Nhập giá trị: ");
-        scanf("%d",&y);
-        AddHead(y);
-        break;
-    case 2:
-        printf("Nhập giá trị: ");
-        scanf("%d",&y);
-        AddTail(y);
-        break;
-    case 3:
-        printf("Nhập giá trị: ");
-        scanf("%d",&d);
-        printf("Nhập giá trị: ");
-        scanf("%d",&y);
-        AddAt(d,y);
-        break;
-    case 4:
-        DeleteHead();
-        break;
-    case 5:
-        DeleteTail();
-        break;
-    }
-    printf ("Bạn có muốn tiếp tục? (y/n): ");
-    char c;
-    fflush(stdin);
-    scanf("%c",&c);
-    if (c == 'y')
-        nhapxuat();
+    int x,y,locate; 
+    do{ 
+        printf("\nChọn câu lệnh: ");
+        scanf("%d",&x);
+        switch (x){
+        case 1:
+            printf("Nhập giá trị: ");
+            scanf("%d",&y);
+            AddHead(y);
+            break;
+        case 2:
+            printf("Nhập giá trị: ");
+            scanf("%d",&y);
+            AddTail(y);
+            break;
+        case 3:
+            printf("Nhập vị trí: ");
+            scanf("%d",&locate);
+            printf("Nhập giá trị: ");
+            scanf("%d",&y);
+            AddAt(locate,y);
+            break;
+        case 4:
+            DeleteHead();
+            break;
+        case 5:
+            DeleteTail();
+            break;
+        case 6:
+            printf("Nhập vị trí: ");
+            scanf("%d",&locate);
+            DeleteAt(locate);
+            break;
+        case 7:
+            Traverser();
+            break;
+        }
+    } while ((x > 0) && (x < 8) );
 }
 
 int main(){
     SetConsoleOutputCP(CP_UTF8);
-    printf("AddHead = 1; AddTail = 2; AddAt = 3; DeleteHead = 4; DeleteTail = 5\n");
+    printf("Bảng câu lệnh:\n");
+    printf("1.AddHead\n");
+    printf("2.AddTail\n");
+    printf("3.AddAt\n");
+    printf("4.DeleteHead\n");
+    printf("5.DeleteTail\n");
+    printf("6.DeleteAt\n");
+    printf("7.Traveser\n");
+    printf("Else:Exit\n");
     nhapxuat();
-    Traverser();
     return 0;
 }
