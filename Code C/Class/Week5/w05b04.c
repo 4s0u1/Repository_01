@@ -1,12 +1,12 @@
-#include <stdio.h>
 #include <windows.h>
+#include <stdio.h>
 
 int main()
 {
-    int a,b;
+    int a, b;
     SetConsoleOutputCP(CP_UTF8);
     printf("Nhập vào số điện tiêu thụ: ");
-    scanf("%d",&a);
+    scanf("%d", &a);
     b = 0;
     if(a > 50)
     {
@@ -27,7 +27,7 @@ int main()
     }
     else
         b += a * 500;
-    printf("Số tiền điện phải trả là: %d",b);
+    printf("Số tiền điện phải trả là: %d", b);
     return 0;
 
 }
