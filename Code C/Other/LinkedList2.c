@@ -131,8 +131,18 @@ void TraverserReverse(){
     }
 }
 
-void nhapxuat(){
+void Menu(){
     int x,y,locate; 
+    printf("Bảng câu lệnh:\n");
+    printf("1.AddHead\n");
+    printf("2.AddTail\n");
+    printf("3.AddAt\n");
+    printf("4.DeleteHead\n");
+    printf("5.DeleteTail\n");
+    printf("6.DeleteAt\n");
+    printf("7.Traveser\n");
+    printf("8.TraverserReverse\n");
+    printf("Else:Exit\n");
     do{ 
         printf("\nChọn câu lệnh: ");
         scanf("%d",&x);
@@ -177,16 +187,6 @@ void nhapxuat(){
 
 int main(){
     SetConsoleOutputCP(CP_UTF8);
-    printf("Bảng câu lệnh:\n");
-    printf("1.AddHead\n");
-    printf("2.AddTail\n");
-    printf("3.AddAt\n");
-    printf("4.DeleteHead\n");
-    printf("5.DeleteTail\n");
-    printf("6.DeleteAt\n");
-    printf("7.Traveser\n");
-    printf("8.TraverserReverse\n");
-    printf("Else:Exit\n");
-    nhapxuat();
+    Menu();
     return 0;
 }

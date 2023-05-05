@@ -64,8 +64,13 @@ void Traverser(){
     }
 }
 
-void nhapxuat(){
-    int x,y,locate; 
+void Menu(){
+    int x,y; 
+    printf("Bảng câu lệnh:\n");
+    printf("1.Enqueue\n");
+    printf("2.Dequeue\n");
+    printf("3.Traveser\n");
+    printf("Else:Exit\n");
     do{ 
         printf("\nChọn câu lệnh: ");
         scanf("%d",&x);
@@ -87,11 +92,6 @@ void nhapxuat(){
 
 int main(){
     SetConsoleOutputCP(CP_UTF8);
-    printf("Bảng câu lệnh:\n");
-    printf("1.Enqueue\n");
-    printf("2.Dequeue\n");
-    printf("3.Traveser\n");
-    printf("Else:Exit\n");
-    nhapxuat();
+    Menu();
     return 0;
 }

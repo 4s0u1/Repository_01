@@ -4,6 +4,7 @@
 
 struct LinkedList{ 
     int data;   
+    struct LinkedList *parent;
     struct LinkedList *left;
     struct LinkedList *right;  
 };                           
@@ -14,45 +15,147 @@ node Origin = NULL;
 
 node CreateNode(int value){
     node temp;
-    temp = (node)malloc(3*sizeof(node)); 
-    temp->data = value;                
+    temp = (node)malloc(5*sizeof(node)); 
+    temp->data = value;   
+    temp->parent = NULL;
     temp->left = NULL;
     temp->right = NULL;                  
     return temp;                        
 }                        
-void replace(int x,int y){
-    int z = x;
-        x = y;
-        y = z; 
-}
 
 void Add(int value, node position){
-    if (Origin == NULL){
+    int add = 0;
+    if (Origin == NULL)
+    {
         Origin = CreateNode(value);
         printf("%d\n",Origin->data);
     }
-    else{
-        if (value < (position -> data)){
-            if (position -> left  == NULL)
-                position -> left = CreateNode(value);
+    else
+    while (add == 0)
+    {
+        if (value < position->data)
+        {
+            printf("Left");
+            if (position->left == NULL)
+            {
+                node p = CreateNode(value);
+                position -> left = p;
+                p -> parent = position;
+                printf("%d\n",value);
+                add++;
+            }
             else 
-                Add(value,position->left);
+                position = position->left;
         }
-        else{
-            if (position -> right == NULL)
-                position -> right = CreateNode(value); 
+        else
+        {
+            printf("Right");
+            if (position->right == NULL)
+            {
+                node p = CreateNode(value);
+                position -> right = p;
+                p -> parent = position;
+                printf("%d\n",value);
+                add++;
+            }
             else
-                Add(value,position->right);
+                position = position->right;
         }
+    }    
+}
+
+void Cutoff(node position){
+    int i = 0;
+    if (position == position->parent->right)
+        i = 1;
+    if (position->right==NULL)
+    {
+        if (i==0)
+            position->parent->left=position->left;
+        else
+            position->parent->right=position->left;
+    }
+    if (position->right!=NULL)
+    {   
+        node p = position->right;
+        while (p->left!=NULL)
+            p = p->left;
+        if (position->left!=NULL)
+        {
+            p->left=position->left;
+            p->left->parent=p;
+        }
+        p->parent=position->parent;  
+        if (i == 0)
+            p->parent->left=p;
+        else
+            p->parent->right=p;
     }
 }
 
+void Del(int value, node position){
+    while (value != position->data)
+    {
+        if (value < position->data)
+            position = position->left;
+        else
+            position = position->right;
+    }   
+    Cutoff(position);
+}
+
+void PrintTree(node position){
+    if (position == NULL){
+            return;
+    }
+    printf(" %d ",position->data);
+    if (position->left != position->right){
+        if (position -> left != NULL)
+        {
+            printf("(");
+            PrintTree(position->left);
+        }
+        else
+            printf("|");
+        if (position -> right != NULL)
+        {
+            PrintTree(position->right);
+            printf(")");
+        }
+        else 
+            printf("|");
+    }
+    
+}
+void Menu(){
+    int x,y; 
+    printf("Bảng câu lệnh:\n");
+    printf("1.Add\n");
+    printf("2.Del\n");
+    printf("3.Print\n");
+    printf("Else:Exit\n");
+    do{ 
+        printf("\nChọn câu lệnh: ");
+        scanf("%d",&x);
+        switch (x){
+        case 1:
+            printf("Nhập giá trị: ");
+            scanf("%d",&y);
+            Add(y,Origin);
+            break;
+        case 2:
+            printf("Nhập giá trị: ");
+            scanf("%d",&y);
+            Del(y,Origin);
+            break;
+        case 3:
+            PrintTree(Origin);
+            break;
+        }
+    } while ((x > 0) && (x < 4) );
+}
 int main(){
     SetConsoleOutputCP(CP_UTF8);
-    Add(10,Origin);
-    Add(17,Origin);
-    Add(8,Origin);
-    Add(20,Origin);
-    Add(15,Origin);
+    Menu();
     return 0;
 }

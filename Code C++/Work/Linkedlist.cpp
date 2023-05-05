@@ -101,7 +101,7 @@ void Traverser(){
     }
 }
 
-void nhapxuat(){
+void Menu(){
     int x,y,d; 
     
     cout << "Chon cau lenh: ";
@@ -136,12 +136,12 @@ void nhapxuat(){
     char c;
     cin >> c;
     if (c == 'y')
-        nhapxuat();
+        Menu();
 }
 
 int main(){
     printf("AddHead = 1; AddTail = 2; AddAt = 3; DeleteHead = 4; DeleteTail = 5\n");
-    nhapxuat();
+    Menu();
     printf("Cac phan tu co trong linkedlist luc nay la: \n");
     Traverser();
     return 0;
