@@ -71,12 +71,15 @@ void DeleteHead(){
     }
     else{
         if (head -> next == NULL) {
+            free(head);
             head = NULL;
             tail = NULL;
         }
         else{
+            node p = head;
             head = head->next;
             head -> back = NULL;
+            free(p);
         }
     }
 }
@@ -88,12 +91,15 @@ void DeleteTail(){
     }
     else{
         if (tail -> back == NULL){
+            free(tail);
             head = NULL;
             tail = NULL;
         }
         else{
+            node p = tail;
             tail = tail -> back;
             tail -> next = NULL;
+            free(p);
         }
     }
 }
@@ -106,8 +112,10 @@ void DeleteAt(int locate){
         for (int i = 1;i < locate-1;i++){
             p = p->next;
         } 
+        node q = p->next;
         p->next = p->next->next;
         p->next->back = p;
+        free(q);
     }
 }
 void Traverser(){

@@ -4,10 +4,10 @@
 
 struct LinkedList{ 
     int data;   
-    struct LinkedList *next;  
+    struct LinkedList* next;  
 };                           
 
-typedef struct LinkedList *node; 
+typedef struct LinkedList* node; 
 
 node head = NULL;   
 
@@ -59,6 +59,7 @@ void AddAt(int locate, int value){
 }
 
 void DeleteHead(){
+    node p = head;
     if (head != NULL){
         if (head -> next = NULL) {
             head = NULL;
@@ -70,6 +71,7 @@ void DeleteHead(){
     else{
         printf("EMPTY\n");
     }
+    free(p);
 }
 
 void DeleteTail(){
@@ -99,11 +101,13 @@ void DeleteAt(int locate){
         for (int i = 1;i < locate-1;i++){
             p = p->next;
         } 
+        node q = p->next;
         p->next = p->next->next;
+        free(q);
     }
 }
 void Traverser(){
-    if (head==NULL){
+    if (head == NULL){
         printf("EMPTY\n");
     }
     else{

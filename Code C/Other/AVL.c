@@ -15,7 +15,7 @@ node Origin = NULL;
 
 node CreateNode(int value){
     node temp;
-    temp = (node)malloc(5*sizeof(node)); 
+    temp = (node)malloc(4*sizeof(node)); 
     temp->data = value;   
     temp->parent = NULL;
     temp->left = NULL;
@@ -74,8 +74,9 @@ void Cutoff(node position){
             position->parent->left=position->left;
         else
             position->parent->right=position->left;
+        free(position);
     }
-    if (position->right!=NULL)
+    else
     {   
         node p = position->right;
         while (p->left!=NULL)
