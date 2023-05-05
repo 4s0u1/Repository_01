@@ -105,15 +105,17 @@ void DelNode(node position){
         p = position->right;
         while (p->left!=NULL)
             p = p->left;
-        node q = p->right;
         if (p->parent!=position)
         {
-            p->parent->left=q;
-            p->right=p->parent;
+            p->parent->left=p->right;
+            p->right->parent=p->parent;
+            p->right=position->right;
+            p->right->parent=p;
         }
+        
         p->left=position->left;
-        if (position->left!=NULL)
-            position->left->parent=p;
+        if (p->left!=NULL)
+            p->left->parent=p;
     }
     if (position != Origin){
         int i=0;
@@ -123,10 +125,14 @@ void DelNode(node position){
             position->parent->left=p;
         else
             position->parent->right=p;
-        p->parent=position->parent;
+        if (p!=NULL)
+            p->parent=position->parent;
     }
     else
+    {
         Origin=p;
+        p->parent=NULL;
+    }
     free(position);
     resetH(Origin);
     FindLeaf(Origin);
