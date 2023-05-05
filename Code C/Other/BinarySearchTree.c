@@ -3,7 +3,7 @@
 #include<windows.h>
 
 struct LinkedList{ 
-    int data,height;
+    int data;   
     struct LinkedList *parent;
     struct LinkedList *left;
     struct LinkedList *right;  
@@ -63,9 +63,7 @@ void Add(int value, node position){
         }
     }    
 }
-void Check(node position){
 
-}
 void Cutoff(node position){
     int i = 0;
     if (position == position->parent->right)
