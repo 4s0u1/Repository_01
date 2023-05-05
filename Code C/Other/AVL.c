@@ -3,7 +3,8 @@
 #include<windows.h>
 
 struct LinkedList{ 
-    int data,height;
+    int data;
+    int height;
     struct LinkedList *parent;
     struct LinkedList *left;
     struct LinkedList *right;  
@@ -17,11 +18,20 @@ node CreateNode(int value){
     node temp;
     temp = (node)malloc(4*sizeof(node)); 
     temp->data = value;   
+    temp->height = 0;
     temp->parent = NULL;
     temp->left = NULL;
     temp->right = NULL;                  
     return temp;                        
-}                        
+}             
+
+void Hight (node position){
+    while (position->parent != NULL && position->parent->height < position->height+1)
+    {
+        position->parent->height = position->height+1;
+        position = position->parent;
+    }
+}
 
 void Add(int value, node position){
     int add = 0;
@@ -35,12 +45,13 @@ void Add(int value, node position){
     {
         if (value < position->data)
         {
-            printf("Left");
+            printf("Left ");
             if (position->left == NULL)
             {
                 node p = CreateNode(value);
                 position -> left = p;
                 p -> parent = position;
+                Hight(p);
                 printf("%d\n",value);
                 add++;
             }
@@ -49,13 +60,14 @@ void Add(int value, node position){
         }
         else
         {
-            printf("Right");
+            printf("Right ");
             if (position->right == NULL)
             {
                 node p = CreateNode(value);
                 position -> right = p;
                 p -> parent = position;
-                printf("%d\n",value);
+                Hight(p);
+                printf("%d \n",value);
                 add++;
             }
             else
@@ -63,40 +75,64 @@ void Add(int value, node position){
         }
     }    
 }
-void Check(node position){
 
-}
-void Cutoff(node position){
-    int i = 0;
-    if (position == position->parent->right)
-        i = 1;
-    if (position->right==NULL)
+
+void FindLeaf(node position){
+    if(position->left==NULL&&position->right==NULL)
     {
-        if (i==0)
-            position->parent->left=position->left;
-        else
-            position->parent->right=position->left;
-        free(position);
+        Hight(position);
+        printf("%d",position->data);
     }
-    else
-    {   
-        node p = position->right;
+    if(position->left!=NULL)
+        FindLeaf(position->left);
+    if(position->right!=NULL)
+        FindLeaf(position->right);
+}
+
+void resetH(node position)
+{
+    position->height = 0;
+    if (position-> left != NULL)
+        resetH(position->left);
+    if (position-> right != NULL)
+        resetH(position->right);
+}
+
+void DelNode(node position){
+    node p = position->left;
+    if (position->right != NULL)
+    {
+        p = position->right;
         while (p->left!=NULL)
             p = p->left;
-        if (position->left!=NULL)
+        node q = p->right;
+        if (p->parent!=position)
         {
-            p->left=position->left;
-            p->left->parent=p;
+            p->parent->left=q;
+            p->right=p->parent;
         }
-        p->parent=position->parent;  
-        if (i == 0)
-            p->parent->left=p;
-        else
-            p->parent->right=p;
+        p->left=position->left;
+        if (position->left!=NULL)
+            position->left->parent=p;
     }
+    if (position != Origin){
+        int i=0;
+        if (position->parent->right==position)
+            i++;
+        if (i==0)
+            position->parent->left=p;
+        else
+            position->parent->right=p;
+        p->parent=position->parent;
+    }
+    else
+        Origin=p;
+    free(position);
+    resetH(Origin);
+    FindLeaf(Origin);
 }
 
-void Del(int value, node position){
+void FindNode(int value, node position){
     while (value != position->data)
     {
         if (value < position->data)
@@ -104,14 +140,14 @@ void Del(int value, node position){
         else
             position = position->right;
     }   
-    Cutoff(position);
+    DelNode(position);
 }
 
 void PrintTree(node position){
     if (position == NULL){
             return;
     }
-    printf(" %d ",position->data);
+    printf(" %d ",position->height);
     if (position->left != position->right){
         if (position -> left != NULL)
         {
@@ -128,13 +164,13 @@ void PrintTree(node position){
         else 
             printf("|");
     }
-    
 }
+
 void Menu(){
     int x,y; 
     printf("Bảng câu lệnh:\n");
     printf("1.Add\n");
-    printf("2.Del\n");
+    printf("2.FindNode\n");
     printf("3.Print\n");
     printf("Else:Exit\n");
     do{ 
@@ -149,7 +185,7 @@ void Menu(){
         case 2:
             printf("Nhập giá trị: ");
             scanf("%d",&y);
-            Del(y,Origin);
+            FindNode(y,Origin);
             break;
         case 3:
             PrintTree(Origin);

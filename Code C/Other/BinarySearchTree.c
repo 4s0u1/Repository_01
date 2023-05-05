@@ -64,37 +64,38 @@ void Add(int value, node position){
     }    
 }
 
-void Cutoff(node position){
-    int i = 0;
-    if (position == position->parent->right)
-        i = 1;
-    if (position->right==NULL)
+void DelNode(node position){
+    node p = position->left;
+    if (position->right != NULL)
     {
-        if (i==0)
-            position->parent->left=position->left;
-        else
-            position->parent->right=position->left;
-        free(position);
-    }
-    else
-    {   
-        node p = position->right;
+        p = position->right;
         while (p->left!=NULL)
             p = p->left;
-        if (position->left!=NULL)
+        node q = p->right;
+        if (p->parent!=position)
         {
-            p->left=position->left;
-            p->left->parent=p;
+            p->parent->left=q;
+            p->right=p->parent;
         }
-        p->parent=position->parent;  
-        if (i == 0)
-            p->parent->left=p;
-        else
-            p->parent->right=p;
+        p->left=position->left;
+        if (position->left!=NULL)
+            position->left->parent=p;
     }
+    if (position != Origin){
+        int i=0;
+        if (position->parent->right==position)
+            i++;
+        if (i==0)
+            position->parent->left=p;
+        else
+            position->parent->right=p;
+        p->parent=position->parent;
+    }
+    else
+        Origin=p;
 }
 
-void Del(int value, node position){
+void FindNode(int value, node position){
     while (value != position->data)
     {
         if (value < position->data)
@@ -102,7 +103,7 @@ void Del(int value, node position){
         else
             position = position->right;
     }   
-    Cutoff(position);
+    DelNode(position);
 }
 
 void PrintTree(node position){
@@ -126,8 +127,8 @@ void PrintTree(node position){
         else 
             printf("|");
     }
-    
 }
+
 void Menu(){
     int x,y; 
     printf("Bảng câu lệnh:\n");
@@ -147,7 +148,7 @@ void Menu(){
         case 2:
             printf("Nhập giá trị: ");
             scanf("%d",&y);
-            Del(y,Origin);
+            FindNode(y,Origin);
             break;
         case 3:
             PrintTree(Origin);
@@ -155,6 +156,7 @@ void Menu(){
         }
     } while ((x > 0) && (x < 4) );
 }
+
 int main(){
     SetConsoleOutputCP(CP_UTF8);
     Menu();
