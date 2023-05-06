@@ -81,7 +81,6 @@ void FindLeaf(node position){
     if(position->left==NULL&&position->right==NULL)
     {
         Hight(position);
-        printf("%d",position->data);
     }
     if(position->left!=NULL)
         FindLeaf(position->left);
@@ -130,12 +129,20 @@ void DelNode(node position){
     }
     else
     {
-        Origin=p;
-        p->parent=NULL;
+        if (p != NULL)
+        {
+            Origin = p;
+            p->parent=NULL;
+        }
+        else
+            Origin = NULL;
     }
     free(position);
-    resetH(Origin);
-    FindLeaf(Origin);
+    if (Origin != NULL)
+    {
+        resetH(Origin);
+        FindLeaf(Origin);
+    }
 }
 
 void FindNode(int value, node position){
@@ -176,7 +183,7 @@ void Menu(){
     int x,y; 
     printf("Bảng câu lệnh:\n");
     printf("1.Add\n");
-    printf("2.FindNode\n");
+    printf("2.Del\n");
     printf("3.Print\n");
     printf("Else:Exit\n");
     do{ 

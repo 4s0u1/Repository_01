@@ -96,9 +96,15 @@ void DelNode(node position){
     }
     else
     {
-        Origin=p;
-        p->parent=NULL;
+        if (p != NULL)
+        {
+            Origin = p;
+            p->parent=NULL;
+        }
+        else
+            Origin = NULL;
     }
+    free(position);
 }
 
 void FindNode(int value, node position){
