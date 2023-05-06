@@ -33,6 +33,26 @@ void Hight (node position){
     }
 }
 
+void FindLeaf(node position){
+    if(position->left==NULL&&position->right==NULL)
+    {
+        Hight(position);
+    }
+    if(position->left!=NULL)
+        FindLeaf(position->left);
+    if(position->right!=NULL)
+        FindLeaf(position->right);
+}
+
+void resetH(node position)
+{
+    position->height = 0;
+    if (position-> left != NULL)
+        resetH(position->left);
+    if (position-> right != NULL)
+        resetH(position->right);
+}
+
 void Add(int value, node position){
     int add = 0;
     if (Origin == NULL)
@@ -77,25 +97,7 @@ void Add(int value, node position){
 }
 
 
-void FindLeaf(node position){
-    if(position->left==NULL&&position->right==NULL)
-    {
-        Hight(position);
-    }
-    if(position->left!=NULL)
-        FindLeaf(position->left);
-    if(position->right!=NULL)
-        FindLeaf(position->right);
-}
 
-void resetH(node position)
-{
-    position->height = 0;
-    if (position-> left != NULL)
-        resetH(position->left);
-    if (position-> right != NULL)
-        resetH(position->right);
-}
 
 void DelNode(node position){
     node p = position->left;
