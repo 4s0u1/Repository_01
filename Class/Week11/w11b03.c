@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void swapVALUE (int *x, int *y, int *z) // Truyền vào địa chỉ của 3 biến giá trị
+/*void swapVALUE (int * x, int *y, int *z) // Truyền vào địa chỉ của 3 biến giá trị
 {
     int value;
     value = *x;
@@ -8,14 +8,24 @@ void swapVALUE (int *x, int *y, int *z) // Truyền vào địa chỉ của 3 bi
     *y = *z;
     *z = value;
 }
+*/
 
-void swapPOINTER (int **x, int **y, int **z) // Truyền vào địa chỉ của 3 biến con trỏ
+void swapVALUE (int **p, int **q, int **r) // Truyền vào địa chỉ của 3 biến con trỏ
+{
+    int value;
+    value = **p;
+    **p = **q;
+    **q = **r;
+    **r = value;
+}
+ 
+void swapPOINTER (int **p, int **q, int **r) // Truyền vào địa chỉ của 3 biến con trỏ
 {
     int *pointer;
-    pointer = *x;
-    *x = *y;
-    *y = *z;
-    *z = pointer;
+    pointer = *p;
+    *p = *q;
+    *q = *r;
+    *r = pointer;
 }
 
 int main(){
@@ -29,16 +39,16 @@ int main(){
     printf("z = ");
     scanf("%d",&z);
     r = &z;
-    printf("&p = %p \t p = %p \n", &p, p);
-    printf("&q = %p \t q = %p \n", &q, q);
-    printf("&r = %p \t r = %p \n", &r, r);
+    printf("&p = %p \t &x = %p \n", &p, p);
+    printf("&q = %p \t &y = %p \n", &q, q);
+    printf("&r = %p \t &z = %p \n", &r, r);
    
     printf("\n");
     printf("&x = %p \t x = %d \n", &x, x);
     printf("&y = %p \t y = %d \n", &y, y);
     printf("&z = %p \t z = %d \n", &z, z);
 
-    swapVALUE(&x,&y,&z);
+    swapVALUE(&p,&q,&r);
     printf("\n");
     printf("p = %p \t x = %d \n", p, x);
     printf("q = %p \t y = %d \n", q, y);

@@ -3,7 +3,7 @@
 #include <windows.h>
 void buff(float *ATK,float *DEF,float *HP){
     int j = rand() % 3;
-    float luck = (rand() % 5) + 1;
+    float luck = (rand() % 10) + 1;
     printf("\n Sau trận đấu, đấu sĩ thứ %d nhận được chúc phúc, tăng %.0f%c chỉ số.\n", j + 1, luck, 37);
     *(ATK+j) *= 1 + (luck / 100);
     *(DEF+j) *= 1 + (luck / 100);
@@ -66,7 +66,7 @@ void preBATTLE(){
         ATK[i] = rand() % 100 + 1;
         DEF[i] = rand() % 100 + 1;
         HP[i] = rand() % 100 + 1;
-        printf("Đấu sĩ thứ %d: ATK = %8.4f \t DEF = %8.4f \t HP = %8.4f \n", i + 1, ATK[i], DEF[i], HP[i]);
+        printf("Đấu sĩ thứ %d: ATK = %8.4f DEF = %8.4f HP = %8.4f \n", i + 1, ATK[i], DEF[i], HP[i]);
     }
     arena(&ATK[0], &DEF[0], &HP[0]);
 }
