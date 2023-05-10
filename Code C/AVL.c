@@ -17,7 +17,7 @@ node Origin = NULL;
 node CreateNode(int value){
     node temp;
     temp = (node)malloc(4*sizeof(node)); 
-    temp->data = value;   
+    temp->data = value;
     temp->height = 0;
     temp->parent = NULL;
     temp->left = NULL;
@@ -35,10 +35,7 @@ void hight (node position){
 
 void FindLeaf(node position){
     if(position->left==NULL&&position->right==NULL)
-    {
-        printf("%d \n", position ->data);
         hight(position); 
-    }
     if(position->left!=NULL)
         FindLeaf(position->left);
     if(position->right!=NULL)
@@ -54,52 +51,68 @@ void resetH(node position)
         resetH(position->right);
 }
 
-void rotateRIGHT(node position){
-    node newP = position -> right;
-    if (position == Origin)
+void rotateLEFT(node position){
+    node newP = position -> left;
+    int x = -1, y = -1;
+    if (newP -> left != NULL)
+        x = newP -> left -> height;
+    if (newP -> right != NULL)
+        y = newP -> right -> height;
+    if (y > x)
     {
+        newP = newP -> right;
+        newP -> parent -> right = newP ->left;
+        if (newP -> left != NULL)
+            newP -> left -> parent = newP -> parent;
+        newP -> parent -> parent = newP;
+        newP -> left = newP -> parent; 
+    }
+    newP -> parent = position -> parent; 
+    if (position == Origin)
         Origin = newP;
-        newP -> parent = NULL;
-    }
-    else
-    {   
-        newP->parent = position->parent;
-        int i = 0;
-        if (position = position->parent->right) 
-            i++;
-        if (i == 0)
-            position->parent->left=newP;
+    else    
+        if (position == position->parent->left)
+            position->parent->left = newP;
         else
-            position->parent->right=newP;
-        position->parent = newP;
-    }
-    position->right = newP->left;
-    newP->left = position;
+            position->parent->right = newP;
+    position -> parent = newP;
+    position -> left = newP -> right; 
+    if (newP -> right!=NULL)
+        newP -> right -> parent = position;
+    newP -> right = position;
     resetH(Origin);
     FindLeaf(Origin);
 }
 
-void rotateLEFT(node position){
-    node newP = position -> left;
-    if (position == Origin)
+void rotateRIGHT(node position){
+    node newP = position -> right;
+    int x = -1, y = -1;
+    if (newP -> left != NULL)
+        x = newP -> left -> height;
+    if (newP -> right != NULL)
+        y = newP -> right -> height;
+    if (x > y)
     {
+        newP = newP -> left;
+        newP -> parent -> left = newP ->right;
+        if (newP -> right != NULL)
+            newP -> right -> parent = newP -> parent;
+        newP -> parent -> parent = newP;
+        newP -> right = newP -> parent; 
+    }
+    newP -> parent = position -> parent; 
+    if (position == Origin)
         Origin = newP;
-        newP -> parent = NULL;
-    }
-    else
-    {   
-        newP->parent = position->parent;
-        int i = 0;
-        if (position = position->parent->right) 
-            i++;
-        if (i == 0)
-            position->parent->left=newP;
+    else    
+        if (position == position->parent->left)
+            position->parent->left = newP;
         else
-            position->parent->right=newP;
-        position->parent = newP;
-    }
-    position->left = newP->right;
-    newP->right = position;
+            position->parent->right = newP;
+    position -> parent = newP;
+    position -> right = newP -> left; 
+    if (newP -> left!=NULL)
+        newP -> left -> parent = position;
+    newP -> left = position;
     resetH(Origin);
     FindLeaf(Origin);
 }
@@ -111,10 +124,10 @@ void scale (node position){
     if (position -> right != NULL)
         y = position -> right -> height;
     int delta = x - y;
-    if (delta < -1)
-        rotateRIGHT(position);
     if (delta > 1)
         rotateLEFT(position);
+    if (delta < -1)
+        rotateRIGHT(position);  
 }
 
 void up (node position){
@@ -130,7 +143,6 @@ void Add(int value, node position){
     if (Origin == NULL)
     {
         Origin = CreateNode(value);
-        printf("%d\n",Origin->data);
         up(Origin);
     }
     else
@@ -209,6 +221,7 @@ void DelNode(node position){
         else
             Origin = NULL;
     }
+    up(position->parent);
     free(position);
     if (Origin != NULL)
     {
@@ -232,7 +245,7 @@ void PrintTree(node position){
     if (position == NULL){
             return;
     }
-    printf(" %d ",position->height);
+    printf(" %d ",position->data);
     if (position->left != position->right){
         if (position -> left != NULL)
         {

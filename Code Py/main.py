@@ -1,11 +1,14 @@
 import math
-n = int(input())
-sc = 0.0
-sd = 0.0
-j = 1 
-for i in range(1,n+1): 
-    sc = math.sqrt(3 + sc)
-    sd = sd + j*i
-    j=j*i
-print('%.3f' % sc)
-print('%.3f' % sd)
+x = float(input())
+if x > 1:
+    print('%.2f' %(math.sqrt(x*x - 1)))
+elif x >= -1:
+    print('%.2f' %(6 - 2 * x))
+else:
+    print('0.00');
+if x > 2:
+    print('%.2f' %(x*x+1))
+elif x >= -2:
+    print('%.2f' %(2*x -1))
+else:
+    print('%.2f' %(6-5*x))
