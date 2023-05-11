@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-/*void swapVALUE (int * x, int *y, int *z) // Truyền vào địa chỉ của 3 biến giá trị
+void swapVALUE (int * x, int *y, int *z) // Truyền vào địa chỉ của 3 biến giá trị
 {
     int value;
     value = *x;
@@ -8,17 +8,7 @@
     *y = *z;
     *z = value;
 }
-*/
 
-void swapVALUE (int **p, int **q, int **r) // Truyền vào địa chỉ của 3 biến con trỏ
-{
-    int value;
-    value = **p;
-    **p = **q;
-    **q = **r;
-    **r = value;
-}
- 
 void swapPOINTER (int **p, int **q, int **r) // Truyền vào địa chỉ của 3 biến con trỏ
 {
     int *pointer;

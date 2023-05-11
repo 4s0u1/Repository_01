@@ -1,14 +1,11 @@
-import math
-x = float(input())
-if x > 1:
-    print('%.2f' %(math.sqrt(x*x - 1)))
-elif x >= -1:
-    print('%.2f' %(6 - 2 * x))
-else:
-    print('0.00');
-if x > 2:
-    print('%.2f' %(x*x+1))
-elif x >= -2:
-    print('%.2f' %(2*x -1))
-else:
-    print('%.2f' %(6-5*x))
+import array as arr 
+x = int(input())
+y = x
+numbers = arr.array('i', []) 
+n = 0
+while x > 0:
+    numbers.append(int(x % 10))
+    x = x // 10
+    n = n + 1
+for i in range(0,n):
+    print(numbers[i])
