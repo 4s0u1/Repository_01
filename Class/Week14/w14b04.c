@@ -83,7 +83,6 @@ void input(){
         printf("+-----+---------------+-----------------------+----------+  \n");
         printf("| %3.2d | %13s | %21s | %8.2f | \n", i+1, stt[i].id, stt[i].name, stt2[i].score);
     }
-        
 }
 
 int main(){

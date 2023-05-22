@@ -39,7 +39,7 @@ void menu(){
     printf("Bảng Điều Khiển: \n");
     printf("1. Lưu mốc thời gian \n");
     printf("2. So sánh 2 mốc thời gian \n");
-    printf("3.Else: Exit \n");
+    printf("Else: Exit \n");
     int i;
     do
     {
@@ -57,7 +57,7 @@ void menu(){
             printf("Ngày tháng năm vừa nhập là: %.2d/%.2d/%d \n",temp1.day,temp1.month,temp1.year);
             date temp2 = createDate();
             printf("Nhập mốc thời gian thứ hai: \n");
-            printf("Ngày tháng năm vừa nhập là: %.2d/%2d/%d \n",temp2.day,temp2.month,temp2.year);
+            printf("Ngày tháng năm vừa nhập là: %.2d/%.2d/%d \n",temp2.day,temp2.month,temp2.year);
             int result = compare(temp1,temp2);
             printf("Két quả so sánh là: %d \n",result);
             break;

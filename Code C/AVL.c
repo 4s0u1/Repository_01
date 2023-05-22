@@ -25,7 +25,7 @@ node CreateNode(int value){
     return temp;                        
 }             
 
-void hight (node position){
+void high (node position){
     while (position->parent != NULL && position->parent->height < position->height+1)
     {
         position->parent->height = position->height+1;
@@ -35,7 +35,7 @@ void hight (node position){
 
 void FindLeaf(node position){
     if(position->left==NULL&&position->right==NULL)
-        hight(position); 
+        high(position); 
     if(position->left!=NULL)
         FindLeaf(position->left);
     if(position->right!=NULL)
@@ -156,7 +156,7 @@ void Add(int value, node position){
                 node p = CreateNode(value);
                 position -> left = p;
                 p -> parent = position;
-                hight(p);
+                high(p);
                 up(p);
                 add++;
             }
@@ -171,7 +171,7 @@ void Add(int value, node position){
                 node p = CreateNode(value);
                 position -> right = p;
                 p -> parent = position;
-                hight(p);
+                high(p);
                 up(p);
                 add++;
             }
@@ -230,15 +230,18 @@ void DelNode(node position){
     }
 }
 
-void FindNode(int value, node position){
-    while (value != position->data)
+node FindNode(int value, node position){
+    while (position != NULL)
     {
-        if (value < position->data)
-            position = position->left;
+        if (value == position->data)
+            break;
         else
-            position = position->right;
+            if (value < position->data)
+                position = position->left;
+            else
+                position = position->right;
     }   
-    DelNode(position);
+    return position;
 }
 
 void PrintTree(node position){
@@ -271,6 +274,7 @@ void Menu(){
     printf("2.Del\n");
     printf("3.Print\n");
     printf("Else:Exit\n");
+    node p;
     do{ 
         printf("\nChọn câu lệnh: ");
         scanf("%d",&x);
@@ -278,12 +282,17 @@ void Menu(){
         case 1:
             printf("Nhập giá trị: ");
             scanf("%d",&y);
-            Add(y,Origin);
+            p = FindNode(y,Origin);
+            if (p == NULL)
+                Add(y,Origin);
+            else 
+                printf("%d",p->data);
             break;
         case 2:
             printf("Nhập giá trị: ");
             scanf("%d",&y);
-            FindNode(y,Origin);
+            p = FindNode(y,Origin);
+            DelNode(p);
             break;
         case 3:
             PrintTree(Origin);
